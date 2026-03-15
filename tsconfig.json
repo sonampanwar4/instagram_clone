@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api-app/*": ["api-layered-service/*"],
+      "@ui-app/*": ["ui-layered-service/*"],
+    },
+    "outDir": "dist"
+  },
+  "include": [
+    "api-layered-service/**/*.ts",
+    "ui-layered-service/**/*.ts",
+    "ui-layered-service/**/*.tsx"
+  ],
+  "exclude": ["dist", "node_modules"]
+}
