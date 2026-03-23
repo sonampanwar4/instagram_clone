@@ -14,12 +14,22 @@
       "@api-app/*": ["api-layered-service/*"],
       "@ui-app/*": ["ui-layered-service/*"],
     },
-    "outDir": "dist"
+    "outDir": "./api-layered-service/build",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
   },
   "include": [
     "api-layered-service/**/*.ts",
     "ui-layered-service/**/*.ts",
     "ui-layered-service/**/*.tsx"
   ],
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "dist", 
+    "node_modules", 
+    "tests", 
+    "./api-layered-service/build", 
+    ".eslint.config.mjs"
+  ]
 }
