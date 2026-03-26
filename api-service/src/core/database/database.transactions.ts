@@ -1,5 +1,5 @@
 import type { Database } from "better-sqlite3";
-import { CreatePostDto } from "src/modules/posts/posts.types";
+import { Post } from "@api-app/modules/posts/posts.types";
 
 // This factory function creates and returns our transaction helpers.
 const createTransactionHelpers = (db: Database) => {
@@ -10,8 +10,15 @@ const createTransactionHelpers = (db: Database) => {
     createPost: db.prepare(
       "INSERT INTO posts (img_url, caption) VALUES (@img_url, @caption) RETURNING *",
     ),
+    // reels
+    getAllReels: db.prepare("SELECT * FROM reels"),
+    // tagged
+    getAllTagged: db.prepare("SELECT * FROM tagged_posts"),
+    // highlights
+    getAllHighlights: db.prepare("SELECT * FROM highlights"),
+    getHighlightById: db.prepare("SELECT * FROM highlights WHERE id = ?"),
   };
-
+  
   const posts = {
     getById: (id: number) => {
       return statements.getPostById.get(id);
@@ -19,13 +26,31 @@ const createTransactionHelpers = (db: Database) => {
     getAll: () => {
       return statements.getAllPosts.all();
     },
-    create: (data: CreatePostDto) => {
+    create: (data: Post) => {
       return statements.createPost.get(data);
+    },
+  };
+  const reels = {
+    getAll: () => {
+      return statements.getAllReels.all();
+    },
+  };
+  const tagged = {
+    getAll: () => {
+      return statements.getAllTagged.all();
+    }
+  };
+  const highlights = {
+    getAll: () => {
+      return statements.getAllHighlights.all();
+    },
+    getById: (id: number) => {
+      return statements.getHighlightById.get(id);
     },
   };
 
   return {
-    posts,
+    posts, reels, tagged, highlights
   };
 };
 

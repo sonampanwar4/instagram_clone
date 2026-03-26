@@ -9,27 +9,26 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@api-app/*": ["api-layered-service/*"],
-      "@ui-app/*": ["ui-layered-service/*"],
+      "@api-app/*": ["api-service/src/*"],
+      "@ui-app/*": ["ui-service/app/*"],
     },
-    "outDir": "./api-layered-service/build",
+    "outDir": "./api-service/build",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
   },
   "include": [
-    "api-layered-service/**/*.ts",
-    "ui-layered-service/**/*.ts",
-    "ui-layered-service/**/*.tsx"
+    "api-service/**/*",
+    "ui-service/**/*"
   ],
-  "exclude": [
-    "dist", 
+  "exclude": [ 
     "node_modules", 
-    "tests", 
-    "./api-layered-service/build", 
+    "./api-service/tests",
+    "./api-service/build", 
     ".eslint.config.mjs"
   ]
 }
