@@ -1,9 +1,11 @@
 import { z } from "zod";
 
-// First, we define the zod schemas
-const createPostDtoSchema = z.object({
-  img_url: z.string().url(),
-  caption: z.string().nullable().optional(), // Caption can be a string, null, or undefined
+// Define a Zod schema for the expected form fields
+const createPostSchema = z.object({
+  caption: z.string().min(1, "Caption cannot be empty.").optional(),
+  // The image will be handled as a file stream/buffer, not directly in the JSON body.
+  // So, we don't define it here for Zod's parsing of the JSON body,
+  // but rather access it from the multipart request.
 });
 
 const postSchema = z.object({
@@ -18,7 +20,6 @@ const postsSchema = z.array(postSchema);
 
 // Then, we infer the TypeScript types directly from our Zod schemas.
 // This avoids duplicating type definitions and ensures our types always match our validation rules.
-type CreatePostDto = z.infer<typeof createPostDtoSchema>;
 type Post = z.infer<typeof postSchema>;
 
-export { createPostDtoSchema, postSchema, postsSchema, CreatePostDto, Post };
+export { postSchema, postsSchema, Post, createPostSchema };
