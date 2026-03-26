@@ -74,52 +74,35 @@ SQLite Database
 instagram_clone/
 │
 ├── api-service/
-│   └── fastify_app/
-│       ├── src/
-│           ├── core/                         # App bootstrap & global infra
-│           │   ├── server.ts
-│           │   ├── plugins/
-│           │   └── config/
+│   └── src/
+│       ├── common/
+│           ├── file-storage.service.ts/
 │
-│           ├── domain/                       # 🔥 PURE BUSINESS LOGIC
-│           │   ├── post/
-│           │   │   ├── post.entity.ts
-│           │   │   ├── post.types.ts
-│           │   │   └── post.repository.port.ts
-│
-│           ├── application/                  # 🔥 USE CASES (orchestrates domain)
-│           │   ├── post/
-│           │   │   ├── create-post.usecase.ts
-│           │   │   ├── get-posts.usecase.ts
-│           │   │   └── post.dto.ts
-│
-│           ├── infrastructure/              # 🔥 IMPLEMENTATIONS (adapters)
+│           ├── core/
 │           │   ├── database/
 │           │   │   ├── database.plugin.ts
-│           │   │   └── post.repository.sqlite.ts
-│           │
-│           │   ├── http/                    # Fastify routes (driving adapter)
-│           │   │   ├── post/
-│           │   │   │   ├── post.routes.ts
-│           │   │   │   ├── post.controller.ts
-│           │   │   │   └── post.schema.ts
+│           │   │   ├── database.transactions.ts
 │
-│           ├── shared/                      # shared utils/types
-│           │   ├── utils/
-│           │   └── types/
-│
-│       ├── tests/
+│           ├── modules/ # routes, service, test, types
+│           │   ├── posts/  
+│           │   ├── highlights/
+│           │   ├── reels/
+│           │   ├── tagged/
+│           │   ├── server.ts
+│   ├── tests/
 │
 ├── ui-service/
-│   └── react_app/
-│       ├── app/
-│           ├── domain/                     # optional (frontend domain logic)
-│           ├── application/                # hooks / use-cases
-│           ├── infrastructure/             # API calls (Axios)
-│           ├── routes/                       # React Router routes
-│           ├── store/                      # Zustand state
-│           ├── schemas/                    # Zod validation
-│           └── components/
+│   └── app/
+│       ├── components/
+│       ├── routes/
+│       ├── schemas/
+│       ├── services/
+│           │   ├── api.ts
+│       ├── app.css
+│       ├── root.tsx
+│       ├── routes.ts
+│       ├── public/
+│       ├── react-router.config.ts
 │
 ├── package.json
 ├── tsconfig.json
