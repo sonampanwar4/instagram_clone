@@ -1,5 +1,5 @@
 import type { Database } from "better-sqlite3";
-import { Post } from "@api-app/modules/posts/posts.types";
+import { Post, CreatePostDb } from "@api-app/modules/posts/posts.types";
 
 // This factory function creates and returns our transaction helpers.
 const createTransactionHelpers = (db: Database) => {
@@ -26,7 +26,7 @@ const createTransactionHelpers = (db: Database) => {
     getAll: () => {
       return statements.getAllPosts.all();
     },
-    create: (data: Post) => {
+    create: (data: CreatePostDb) => {
       return statements.createPost.get(data);
     },
   };

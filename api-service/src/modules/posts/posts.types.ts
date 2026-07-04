@@ -7,6 +7,11 @@ const createPostSchema = z.object({
   // So, we don't define it here for Zod's parsing of the JSON body,
   // but rather access it from the multipart request.
 });
+const createPostDbSchema = z.object({
+  img_url: z.string(),
+  caption: z.string().nullable(),
+});
+
 
 const postSchema = z.object({
   id: z.number(),
@@ -21,5 +26,5 @@ const postsSchema = z.array(postSchema);
 // Then, we infer the TypeScript types directly from our Zod schemas.
 // This avoids duplicating type definitions and ensures our types always match our validation rules.
 type Post = z.infer<typeof postSchema>;
-
-export { postSchema, postsSchema, Post, createPostSchema };
+type CreatePostDb = z.infer<typeof createPostDbSchema>;
+export { postSchema, postsSchema, Post,CreatePostDb, createPostSchema };

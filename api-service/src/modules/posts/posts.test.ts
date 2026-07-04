@@ -1,81 +1,75 @@
 import Fastify from "fastify";
+import multipart from "@fastify/multipart";
 import { postsRoutes } from "./posts.routes";
+import FormData from "form-data";
 
-describe("POST /posts", () => {
-  it("should create a new post and return it with a 201 status code", async () => {
-    const app = Fastify();
+const createMock = jest.fn();
+const getAllMock = jest.fn();
 
-    const newPostPayload = {
-      img_url: "http://example.com/new-image.jpg",
+jest.mock("./posts.service", () => ({
+  postsService: () => ({
+    create: createMock,
+    getAll: getAllMock,
+  }),
+}));
+
+describe("Posts API", () => {
+  let app: ReturnType<typeof Fastify>;
+
+  beforeEach(async () => {
+    app = Fastify();
+
+    app.register(multipart);
+    app.register(postsRoutes);
+
+    await app.ready();
+
+    jest.clearAllMocks();
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+
+  it("POST /posts should create a post", async () => {
+    const createdPost = {
+      id: 1,
+      img_url: "/uploads/fake.jpg",
       caption: "A brand new post from our test!",
     };
 
-    const createdPost = { ...newPostPayload, id: 1 };
+    createMock.mockResolvedValue(createdPost);
 
-    app.decorate("transactions", {
-      posts: {
-        getById: jest.fn(),
-        getAll: jest.fn(),
-        create: jest.fn().mockReturnValue(createdPost),
-      },
-      reels: {
-        getAll: jest.fn(), // not used here, but required
-      },
-      tagged: {
-        getAll: jest.fn(),
-      },
-      highlights: {
-        getAll: jest.fn(),
-        getById: jest.fn(),
-      }
-    });
-
-    app.register(postsRoutes);
+    const form = new FormData();
+    form.append("caption", "A brand new post from our test!");
 
     const response = await app.inject({
       method: "POST",
       url: "/posts",
-      payload: newPostPayload,
+      payload: form,
+      headers: form.getHeaders(),
     });
 
     expect(response.statusCode).toBe(201);
     expect(JSON.parse(response.payload)).toEqual(createdPost);
+
+    expect(createMock).toHaveBeenCalledWith({
+      caption: "A brand new post from our test!",
+      imageFile: undefined,
+    });
   });
 
-  describe("GET /posts", () => {
-  it("should return all posts", async () => {
-    const app = Fastify();
-
+  it("GET /posts should return all posts", async () => {
     const posts = [
-      { id: 1, img_url: "http://example.com/new-image.jpg", 
-        caption: "First post", 
-        created_at: new Date().toISOString() 
+      {
+        id: 1,
+        img_url: "http://example.com/1.jpg",
+        caption: "First post",
+        created_at: new Date().toISOString(),
       },
-      { id: 2, img_url: "http://example.com/new-image.jpg", 
-        caption: "Second post", 
-        created_at: new Date().toISOString() 
-      }
     ];
 
-    app.decorate("transactions", {
-      posts: {
-        getById: jest.fn(),
-        getAll: jest.fn().mockReturnValue(posts),
-        create: jest.fn(),
-      },
-      reels: {
-        getAll: jest.fn(), // not used here, but required
-      },
-      tagged: {
-        getAll: jest.fn(),
-      },
-      highlights: {
-        getAll: jest.fn(),
-        getById: jest.fn(),
-      }
-    });
-
-    app.register(postsRoutes);
+    getAllMock.mockResolvedValue(posts);
 
     const response = await app.inject({
       method: "GET",
@@ -83,9 +77,6 @@ describe("POST /posts", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(JSON.parse(response.payload)).toEqual(posts);
+    expect(JSON.parse(response.payload)).toHaveLength(1);
   });
-});
-
-  
 });

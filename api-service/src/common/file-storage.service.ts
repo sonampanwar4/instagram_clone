@@ -8,6 +8,7 @@ export const fileStorageService = {
     originalFilename: string,
   ): Promise<string> {
     const uploadDir = path.join(process.cwd(), "public", "uploads");
+    console.log(uploadDir);
     await fs.mkdir(uploadDir, { recursive: true }); // Ensure directory exists
 
     const fileExtension = path.extname(originalFilename);

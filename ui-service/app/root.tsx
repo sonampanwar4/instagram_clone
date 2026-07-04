@@ -7,13 +7,9 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "react-router";
-import stylesheet from "./app.css?url";
-import { Header } from "./components/Header";
-import { BottomNav } from "./components/BottomNav";
 
-export function links() {
-  return [{ rel: "stylesheet", href: stylesheet }];
-}
+import { Header } from "./components/Header.js";
+import { BottomNav } from "./components/BottomNav.js";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
