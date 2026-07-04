@@ -4,18 +4,19 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
 
-    "lib": ["DOM", "ES2022"],
     "jsx": "react-jsx",
+    "types": ["node", "jest"],
 
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
     "esModuleInterop": true,
-    "allowJs": false,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
     "paths": {
-      "@api/*": ["./api-service/src/*"],
-      "@ui/*": ["./ui-service/app/*"]
+      "@api-app/*": ["api-service/src/*"],
+      "@ui-app/*": ["ui-service/app/*"]
     },
 
     "outDir": "./api-service/build"
