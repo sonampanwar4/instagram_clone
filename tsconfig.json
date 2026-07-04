@@ -24,7 +24,7 @@
 
     "outDir": "./api-service/build"
   },
-  "include": ["api-service/**/*", "ui-service/**/*"],
+  "include": ["api-service/**/*", "ui-service/**/*", "vite.config.ts"],
   "exclude": [
     "node_modules",
     "api-service/build"
