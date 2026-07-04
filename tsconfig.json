@@ -1,32 +1,36 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
 
-    "lib": ["DOM", "ES2022"],
     "jsx": "react-jsx",
+    "types": ["node", "jest"],
+    "lib": ["DOM", "ESNext"],
 
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-
     "esModuleInterop": true,
-    "allowJs": false,
-
+    "allowJs": true,
     "baseUrl": ".",
-
     "paths": {
-      "@api/*": ["api-service/src/*"],
-      "@ui/*": ["ui-service/app/*"]
+      "@api-app/*": ["api-service/src/*"],
+      "@ui-app/*": ["ui-service/app/*"]
     },
-
-    "outDir": "./api-service/build"
+    "rootDir": ".",
+    "outDir": "./api-service/build",
+    "ignoreDeprecations": "6.0",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
   },
+  
   "include": ["api-service/**/*", "ui-service/**/*", "vite.config.ts"],
   "exclude": [
     "node_modules",
-    "api-service/build"
+    "api-service/build",
+    ".eslint.config.mjs"
   ]
 }

@@ -2,11 +2,11 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature-*]
 
 env:
-  NODE_VERSION: 20
-  ECR_REGISTORY: 'insta-clone-ecr'
+  NODE_VERSION: 22.22.0
+  ECR_REPOSITORY: 'insta-clone-ecr'
 
 jobs:
   test:

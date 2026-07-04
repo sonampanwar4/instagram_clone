@@ -1,10 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { fileStorageService } from "../../common/file-storage.service"; // Import the new service
-
-type CreatePostData = {
-  img_url: string; // This will now come from our storage service
-  caption: string;
-};
+import { fileStorageService } from "@api-app/common/file-storage.service"; // Import the new service
 
 type CreatePostServiceArgs = {
   caption: string;

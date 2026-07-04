@@ -9,10 +9,7 @@ export const postsRoutes: FastifyPluginAsync = async (app: FastifyInstance) => {
 
   app.post("/posts", async (request, reply) => {
     // Ensure the request is multipart
-    if (!request.isMultipart()) {
-      reply.code(415).send({ message: "Request must be multipart" });
-      return;
-    }
+    
     const parts = request.parts(); // Get the multipart parts
 
     let caption: string | undefined;
