@@ -1,9 +1,12 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/default-esm",
   testEnvironment: "node",
+
+  extensionsToTreatAsEsm: [".ts"],
+
   moduleNameMapper: {
-    "^src/(.*)$": "<rootDir>/src/$1",
+    "^src/(.*)$": "<rootDir>/src/$1"
   },
-  modulePathIgnorePatterns: ["<rootDir>/build/"],
+
+  modulePathIgnorePatterns: ["<rootDir>/api-service/build"]
 };

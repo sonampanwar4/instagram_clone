@@ -1,0 +1,11 @@
+node_modules
+api-service/build
+ui-service/dist
+build
+.git
+.gitignore
+npm-debug.log
+.vscode
+package-lock.json
+.idea
+.DS_Store
