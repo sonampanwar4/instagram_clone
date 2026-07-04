@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -14,12 +13,9 @@
 
     "esModuleInterop": true,
     "allowJs": false,
-
-    "baseUrl": ".",
-
     "paths": {
-      "@api/*": ["api-service/src/*"],
-      "@ui/*": ["ui-service/app/*"]
+      "@api/*": ["./api-service/src/*"],
+      "@ui/*": ["./ui-service/app/*"]
     },
 
     "outDir": "./api-service/build"
